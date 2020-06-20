@@ -3,21 +3,19 @@ from flask import Flask, render_template, request
 
 from chatterbot import ChatBot
 
-from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 
 
 # create flask app object
 app = Flask(__name__)
 
 # create chatbot
-bot = ChatBot(
-    "HNGi7-Bot",
-    logic_adapters=["chatterbot.corpus.english.conversations"])
+bot = ChatBot("HNGi7-Bot")
 
 # configure chatbot
-trainer = ChatterBotCorpusTrainer(bot)
+trainer = ListTrainer(bot)
 trainer.train(
-    "chatterbot.corpus.english.greetings"
+    "chatterbot.corpus.english.conversation"
 )
 
 
