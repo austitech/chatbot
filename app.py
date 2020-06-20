@@ -14,10 +14,7 @@ bot = ChatBot("HNGi7-Bot")
 
 # configure chatbot
 trainer = ChatterBotCorpusTrainer(bot)
-trainer.train(
-    "chatterbot.corpus.english.greetings",
-    "chatterbot.corpus.english.conversation"
-)
+trainer.train("chatterbot.corpus.english")
 
 
 # create flask routes
