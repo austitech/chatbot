@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 
 from chatterbot import ChatBot
 
-from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 
 # create flask app object
@@ -13,8 +13,9 @@ app = Flask(__name__)
 bot = ChatBot("HNGi7-Bot")
 
 # configure chatbot
-trainer = ListTrainer(bot)
+trainer = ChatterBotCorpusTrainer(bot)
 trainer.train(
+    "chatterbot.corpus.english.greetings",
     "chatterbot.corpus.english.conversation"
 )
 
