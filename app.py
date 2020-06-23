@@ -10,11 +10,23 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 app = Flask(__name__)
 
 # create chatbot
-bot = ChatBot("HNGi7-Bot")
+bot = ChatBot(
+    "HNGi7-Bot",
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
+    logic_adapters=[
+        {
+            "import_path": "chatterbot.logic.BestMatch",
+            "default_response": "Sorry, but i do not understand",
+            "maximum_similarity_threshold": 0.90
+        }
+    ])
 
 # configure chatbot
 trainer = ChatterBotCorpusTrainer(bot)
-trainer.train("chatterbot.corpus.english")
+trainer.train(
+    "chatterbot.corpus.english.greetings",
+    "chatterbot.corpus.english.conversations",
+    "chatterbot.corpus.english.emotion")
 
 
 # create flask routes
