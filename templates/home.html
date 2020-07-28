@@ -1,0 +1,90 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>HNGi7-Bot</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <style>
+            #chatbox {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 60px;
+          }
+            #userInput {
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            margin-top: 60px;
+          }
+          #textInput {
+            width: 90%;
+            border: none;
+            border-bottom: 3px solid black;
+            font-family: monospace;
+            font-size: 14px;
+          }
+          .userText {
+            color: white;
+            font-family: monospace;
+            font-size: 14px;
+            text-align: right;
+            line-height: 30px;
+          }
+          .userText span {
+            background-color: #808080;
+            padding: 10px;
+            border-radius: 12px;
+          }
+          .botText {
+            color: white;
+            font-family: monospace;
+            font-size: 14px;
+            text-align: left;
+            line-height: 30px;
+          }
+          .botText span {
+            background-color: #4169e1;
+            padding: 10px;
+            border-radius: 12px;
+          }
+          .card {
+            margin: 0 auto;
+            float: none;
+            margin-top: 20px;
+            margin-bottom: 10px;
+          }
+        </style>
+    </head>
+    <body>
+        <div class="card" style="width: 40rem">
+            <h1 class="card-header text-center bg-dark text-white">HNGi7 Personal Chatbot</h1>
+            <div class="card-body bg-white text-center">
+                <div id="chatbox">
+                    <p class="botText"></p>
+                </div>
+                <div id="userInput">
+                    <input id="textInput" type="text" name="msg" placeholder="Type Your Message"/>
+                </div>
+            </div>
+        </div>
+        <script>
+            function getBotResponse() {
+              var rawText = $("#textInput").val();
+              var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+              $("#textInput").val("");
+              $("#chatbox").append(userHtml);
+              document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+              $.get("/get", { msg: rawText }).done(function(data) {
+                var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+                $("#chatbox").append(botHtml);
+                document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+              });
+            }
+            $("#textInput").keypress(function(e) {
+              if (e.which == 13) {
+                getBotResponse();
+              }
+            });
+        </script>
+    </body>
+</html>
