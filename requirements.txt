@@ -1,4 +1,5 @@
 chatterbot
 chatterbot-corpus
+nltk
 flask
 gunicorn
